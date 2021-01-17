@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <title>Le Labo | Calculatrice</title>
+    <link rel="icon" href="images/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png" />
+    <link rel="stylesheet" media="screen" href="css/loader.css" />
+  </head>
+
+  <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');   
+
+    .container {
+      font-family: 'Roboto', sans-serif;
+      margin: auto;
+      background-color: rgb(21, 21, 102);
+      height: 540px;
+      width: 328px;
+    }
+
+    .zone {
+      font-size: 30px;
+      height: 130px;
+      width: 328px;
+      background-color: #202020;
+      color: white;
+    }
+
+    .calcul {
+      margin-left: 15px;
+      padding-top: 10px;;
+    }
+
+    .resultat {
+      font-size: 60px;
+      margin-top: 5px;
+      margin-right: 15px;
+      text-align: right;
+    }
+
+    .item {
+      text-align: center;
+      font-size: 30px;
+      float: left;
+      height: 80px;
+      width: 80px;
+      background-color: rgb(230, 230, 230);
+      border: solid 1px rgb(196, 196, 196);
+    }
+
+    .item:hover {
+      transform: scale(1.1);
+    }
+
+    .itemoperation {
+      color : white;
+      background-color: rgb(240, 181, 21);
+    }
+
+    .action {
+      margin-top: 20px;
+    }
+
+  </style>
+
+  <body>
+      <div class="container">
+        <div class="zone">
+          <div class="calcul" id="calcul"></div>
+          <div class="resultat" id="resultat">0</div>
+        </div>
+        <div class="item1 item">
+          <div class="action">
+            CE
+          </div>
+        </div>
+        <div class="item2 item" onclick="deleteall()">
+          <div class="action">
+            C
+          </div>
+        </div>
+        <div class="item3 item">
+          <div class="action">
+            <=
+          </div>
+        </div>
+        <div class="item4 item itemoperation" onclick="division()">
+          <div class="action">
+            /
+          </div>
+        </div>
+        <div class="item5 item" onclick="sept()">
+          <div class="action">
+            7
+          </div>
+        </div>
+        <div class="item6 item" onclick="huit()">
+          <div class="action">
+            8
+          </div>
+        </div>
+        <div class="item7 item" onclick="neuf()">
+          <div class="action">
+            9
+          </div>
+        </div>
+        <div class="item8 item itemoperation" onclick="multiplication()">
+          <div class="action">
+            x
+          </div>
+        </div>
+        <div class="item9 item" onclick="quatre()">
+          <div class="action">
+            4
+          </div>
+        </div>
+        <div class="item10 item" onclick="cinq()">
+          <div class="action">
+            5
+          </div>
+        </div>
+        <div class="item11 item" onclick="six()">
+          <div class="action">
+            6
+          </div>
+        </div>
+        <div class="item12 item itemoperation" onclick="moins()">
+          <div class="action">
+            -
+          </div>
+        </div>
+        <div class="item13 item" onclick="un()">
+          <div class="action">
+            1
+          </div>
+        </div>
+        <div class="item14 item" onclick="deux()">
+          <div class="action">
+            2
+          </div>
+        </div>
+        <div class="item15 item" onclick="trois()">
+          <div class="action">
+            3
+          </div>
+        </div>
+        <div class="item16 item itemoperation" onclick="plus()">
+          <div class="action">
+            +
+          </div>
+        </div>
+        <div class="item17 item" onclick="moinsdeux()">
+          <div class="action">
+            +/-
+          </div>
+        </div>
+        <div class="item18 item" onclick="zero()">
+          <div class="action">
+            0
+          </div>
+        </div>
+        <div class="item19 item" onclick="virgule()">
+          <div class="action">
+            ,
+          </div>
+        </div>
+        <div class="item20 item itemoperation" onclick="resultat()">
+          <div class="action">
+            =
+          </div>
+        </div>
+      </div>
+  </body>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164716890-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-164716890-1');
+  </script>
+
+  <script>
+    
+    var egal = 0;
+    var calcul = "";
+    document.getElementById("calcul").innerHTML = calcul;
+
+    function zero() {
+      egal += 0;
+      calcul += "0";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function un() {
+      egal += 1;
+      calcul += "1";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function deux() {
+      egal += 2;
+      calcul += "2";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function trois() {
+      egal += 3;
+      calcul += "3";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function quatre() {
+      egal += 4;
+      calcul += "4";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function cinq() {
+      egal += 5;
+      calcul += "5";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function six() {
+      egal += 6;
+      calcul += "6";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function sept() {
+      egal += 7;
+      calcul += "7";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function huit() {
+      egal += 8;
+      calcul += "8";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function neuf() {
+      egal += 9;
+      calcul += "9";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function division() {
+      calcul += "/";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function multiplication() {
+      calcul += "x";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function moins() {
+      calcul += "-";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function plus() {
+      calcul += "+";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function virgule() {
+      calcul += ",";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function deleteall() {
+      calcul = ".";
+      document.getElementById("calcul").innerHTML = calcul;
+    }
+
+    function resultat() {
+      document.getElementById("resultat").innerHTML = "= "+ egal;
+      console.log(calcul)
+      var total = parseInt(calcul);
+      console.log(total);
+    }
+
+    if (calcul.length > 18) {
+      document.getElementById("calcul").style.fontSize = "large";
+    }
+
+  </script>
+
+</html>

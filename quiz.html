@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <title>Le Labo | API Quiz</title>
+    <link rel="icon" href="images/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png" />
+    <link rel="stylesheet" media="screen" href="css/loader.css" />
+  </head>
+
+  <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+    * {
+        font-family: Roboto;
+        margin: 0;
+    }
+
+    #cont {
+        display: flex;
+        justify-content: center;
+    }
+
+    #lancement {
+        margin: auto;
+        position: relative;
+        top: 300px;
+        width: 400px;
+        height: 100px;
+        margin-bottom: -100px;
+        font-size: 50px;
+    }
+
+    #container {
+        margin: auto;
+        margin-top: 50px;
+        width: 1000px;
+        height: 500px;
+        border-radius: 15px;
+        background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        z-index: 1;
+    }
+
+    #bar {
+        background-image: linear-gradient(45deg,#d1736c 0%, #967aa3 50%, #d1736c 100%);
+        height: 15px;
+    }
+
+    #top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 60px;
+        position: relative;
+        top: 50px;
+    }
+    
+    #nbquestion {
+        font-weight: 500;
+        font-size: 64px;
+        line-height: 75px;
+    }
+
+    #categorie {
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    #question {
+        margin: auto;
+        width: 890px;
+        height: 50px;;
+        font-weight: 300;
+        font-size: 24px;
+        line-height: 28px;
+        text-align: center;
+        position: relative;
+        top: 60px;
+    }
+
+    #bouton {
+        margin: 80px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        top: 60px;
+    }
+
+    #chrono {
+        flex: 3;
+        margin-left: 150px;
+        font-weight: 500;
+        font-size: 110px;
+        line-height: 129px;
+    }
+
+    #Vrai {
+        flex: 1;
+        border: none;
+        width: 182px;
+        height: 75px;
+        background-color: white;
+    }
+
+    #Faux {
+        flex: 1;
+        border: none;
+        width: 182px;
+        height: 75px;
+        background-color: white;
+    }
+
+    #score {
+        display: flex;
+        position: relative;
+        top: 90px;
+    }
+
+    #score1, #score2, #score3, #score4, #score5, #score6, #score7, #score8, #score9, #score10 {
+        flex: 1;
+        width: 98px;
+        height: 15px;
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+
+    #cont2 {
+        display: flex;
+        justify-content: center;
+    }
+
+    #total {
+        position: relative;
+        top: -260px;
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        z-index: 0;
+    }
+
+  </style>
+
+  <body onload="load()">
+
+    <div id="bar"></div>
+    <div id="cont">
+        <input type="button" value="Lancer le Quiz" id="lancement" />
+    </div>
+    <div id="container">
+        <div id="top">
+            <div id="nbquestion"></div>
+            <div id="categorie"></div>
+        </div>
+        <div id="question"></div>
+        <div id="bouton">
+            <div id="chrono"></div>
+            <input type="button" value="Vrai" id="Vrai" class="btn-grad" />
+            <input type="button" value="Faux" id="Faux" class="btn-grad" />
+        </div>
+        <div id="score">
+            <div id="score1"></div>
+            <div id="score2"></div>
+            <div id="score3"></div>
+            <div id="score4"></div>
+            <div id="score5"></div>
+            <div id="score6"></div>
+            <div id="score7"></div>
+            <div id="score8"></div>
+            <div id="score9"></div>
+            <div id="score10"></div>
+        </div>
+    </div>
+    <div id="cont2">
+        <div id="total">
+            <div id="resultat"></div>
+        </div>
+    </div>
+
+  </body>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164716890-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-164716890-1');
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script>
+
+    function load() {
+        home();
+
+
+
+        var nbrq = 1;
+        var resultat = 0;
+        
+
+
+        function home() {
+            document.getElementById("container").style.visibility = "hidden";
+            document.getElementById("Vrai").style.visibility = "hidden";
+            document.getElementById("Faux").style.visibility = "hidden";
+            document.getElementById("cont2").style.visibility = "hidden";
+        }
+
+
+
+        document.getElementById("lancement").addEventListener("click", lancement);
+        function lancement() {
+            document.getElementById("cont").style.visibility = "hidden";
+            document.getElementById("lancement").style.visibility = "hidden";
+            document.getElementById("container").style.visibility = "visible";
+            document.getElementById("Vrai").style.visibility = "visible";
+            document.getElementById("Faux").style.visibility = "visible";
+            bouton();
+            decompte();
+        }
+
+
+
+        var callBackGetSuccess = function(data) {
+            function entierAleatoire(min, max){
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            var numq = entierAleatoire(0, 9);
+
+
+
+            var correct = data.results[numq].correct_answer;
+            if (correct == "True") {
+                correct = "Vrai"
+            }
+            else {
+                correct = "Faux";
+            }
+
+
+
+            var score = "score" + nbrq;
+            document.getElementById("Vrai").onclick = testvrai;
+            function testvrai() {
+                if (document.getElementById("Vrai").value == correct) {
+                    bouton();
+                    time = 0;
+                    nbrq++;
+                    resultat++;
+                    document.getElementById(score).style.backgroundColor = "green";
+                    document.getElementById(score).style.border = "2px solid black";
+                }
+                if (document.getElementById("Vrai").value != correct) {
+                    bouton();
+                    time = 0;
+                    nbrq++;
+                    document.getElementById(score).style.backgroundColor = "red";
+                    document.getElementById(score).style.border = "2px solid black";
+                }
+            }
+            document.getElementById("Faux").onclick = testfaux;
+            function testfaux() {
+                if (document.getElementById("Faux").value == correct) {
+                    bouton();
+                    time = 0;
+                    nbrq++;
+                    resultat++;
+                    document.getElementById(score).style.backgroundColor = "green";
+                    document.getElementById(score).style.border = "2px solid black";
+                }
+                if (document.getElementById("Faux").value != correct) {
+                    bouton();
+                    time = 0;
+                    nbrq++;
+                    document.getElementById(score).style.backgroundColor = "red";
+                    document.getElementById(score).style.border = "2px solid black";
+                }
+            }
+
+
+
+            if (nbrq == 11) {
+                document.getElementById("cont2").style.visibility = "visible";
+                return load();        
+            }
+
+
+
+            var bar = (10 * nbrq) + "%";
+            document.getElementById("bar").style.width = bar;
+
+
+
+            document.getElementById("nbquestion").innerHTML = "Question n°" + nbrq;
+            document.getElementById("categorie").innerHTML = data.results[numq].category;
+            document.getElementById("question").innerHTML = data.results[numq].question;
+            document.getElementById("chrono").innerHTML = time;
+            document.getElementById("resultat").innerHTML = resultat;
+            document.getElementById(score).style.border = "2px solid blue";
+
+            console.log("API", data);
+            console.log("N°", numq);
+            console.log("Question n°" + nbrq);
+            console.log("Réponse : ", correct);
+        }
+
+
+
+        function bouton() {
+            var url = "https://opentdb.com/api.php?amount=10&type=boolean"
+        
+            $.get(url, callBackGetSuccess).done(function() {
+            })
+            .fail(function() {
+                alert("Et là, c'est le bug  (┛ಠ_ಠ)┛彡┻━┻");
+            })
+            .always(function() {
+            });
+        }
+
+
+
+        var time = 0; //
+        function makeAlert() {
+            var scroretime = "score" + nbrq;
+            time++;
+            console.log(time);
+            document.getElementById("chrono").innerHTML = time;
+            if (time == 10) {
+                bouton();
+                time = 0; //
+                nbrq++;
+                document.getElementById(scroretime).style.border = "2px solid black";
+                document.getElementById(scroretime).style.backgroundColor = "red";
+            }
+        }
+        function decompte() {
+            setInterval(makeAlert, 1000);
+        }
+    }
+
+    function test() {
+        alert();
+    }
+
+  </script>
+
+</html>
